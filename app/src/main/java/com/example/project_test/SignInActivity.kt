@@ -42,8 +42,8 @@ class SignInActivity : AppCompatActivity() {
                     Toast.makeText(this, "Successful login", Toast.LENGTH_SHORT).show()
                     val intent= Intent(this,MainActivity::class.java)
 
-                    var myApp=MyApplication()
-                    myApp.email_id=inputemail
+
+                    MyApplication.Companion.email_id=inputemail
                     startActivity(intent)
                 }
                 else

@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         var user_text=hv.findViewById<TextView>(R.id.Username_text_view)
         user_text.setText("Default Username")
         var email_text=hv.findViewById<TextView>(R.id.email_id_text_view)
-        email_text.setText(MyApplication().email_id)
+        email_text.setText(MyApplication.Companion.email_id)
 
     }
 
