@@ -2,9 +2,7 @@ package com.example.project_test
 
 import android.os.Bundle
 import android.view.Menu
-import android.view.View
 import android.widget.TextView
-import android.widget.Toolbar
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -14,18 +12,19 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.example.project_test.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
-    //private lateinit var b2 : ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
-        //b2 = ActivityMainBinding.inflate(layoutInflater)
+
         setContentView(binding.root)
 
         setSupportActionBar(binding.appBarMain.toolbar)
@@ -51,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         var user_text=hv.findViewById<TextView>(R.id.Username_text_view)
         user_text.setText("Default Username")
         var email_text=hv.findViewById<TextView>(R.id.email_id_text_view)
-        email_text.setText(MyApplication.Companion.email_id)
+        email_text.setText(MyApplication.email_id)
 
     }
 

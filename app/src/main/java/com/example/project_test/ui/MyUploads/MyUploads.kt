@@ -37,6 +37,8 @@ class MyUploads : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var image_data_list : ArrayList<Image_data>
     private lateinit var storageReference: StorageReference
+    private lateinit var ImageName: String
+    private lateinit var ImageLocation: String
     companion object {
         fun newInstance() = MyUploads()
 
@@ -77,17 +79,20 @@ class MyUploads : Fragment() {
     private fun load_data()
     {
         var con=UploadImage.conclass()
-        var stmt="select image_url from all_images"
+        var stmt="select image_url , image_name , image_location  from all_images;"
         var statement=con.createStatement()
         var rs=statement.executeQuery(stmt)
 
         while (rs.next()){
             var s1=rs.getString("image_url")
+            ImageName=rs.getString("image_name")
+            ImageLocation=rs.getString("image_location")
             DownloadImageFromUrl(s1)
         }
         return
         //image_data_list.add(Image_data(u,'label1'))
     }
+
 
     private fun DownloadImageFromUrl(url_string:String)
     {
@@ -104,7 +109,7 @@ class MyUploads : Fragment() {
                 var inp = con.inputStream
                 var bmp=BitmapFactory.decodeStream(inp)
                 inp.close()
-                image_data_list.add(cnt,Image_data(bmp,"Image1"))
+                image_data_list.add(cnt,Image_data(bmp,ImageName,ImageLocation))
                 cnt=cnt+1
             }
         }

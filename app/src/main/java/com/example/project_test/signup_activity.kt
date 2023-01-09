@@ -33,6 +33,8 @@ class signup_activity : AppCompatActivity() {
                         if(it.isSuccessful)
                         {
                             val intent = Intent(this,SignInActivity::class.java)
+
+                            // upload to db
                             startActivity(intent)
                         }
                         else

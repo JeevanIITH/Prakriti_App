@@ -3,12 +3,10 @@ package com.example.project_test.ui
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewParent
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.project_test.R
-import com.google.android.material.imageview.ShapeableImageView
 
 class MyAdapter(public val image_data_list: ArrayList<Image_data>) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
 
@@ -21,7 +19,8 @@ class MyAdapter(public val image_data_list: ArrayList<Image_data>) : RecyclerVie
         val current_item=image_data_list[position]
 
         holder.image_image.setImageBitmap(current_item.image_uri)
-        holder.image_label.text=current_item.image_label
+        holder.image_name.text= "Image Name : "+current_item.image_label
+        holder.image_location.text="Image Location : "+current_item.image_location
 
     }
 
@@ -33,6 +32,7 @@ class MyAdapter(public val image_data_list: ArrayList<Image_data>) : RecyclerVie
     class MyViewHolder(itemView: View ) :RecyclerView.ViewHolder(itemView)
     {
         val image_image : ImageView =itemView.findViewById(R.id.list_item_template_image)
-        val image_label : TextView = itemView.findViewById(R.id.list_item_text)
+        val image_name : TextView = itemView.findViewById(R.id.ItemImageName)
+        val image_location : TextView=itemView.findViewById(R.id.ItemImageLocation)
     }
 }

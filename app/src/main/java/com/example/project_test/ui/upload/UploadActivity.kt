@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.project_test.MyApplication
 import com.example.project_test.R
 import com.example.project_test.databinding.ActivityUploadBinding
 import com.github.dhaval2404.imagepicker.ImagePicker
@@ -19,6 +20,11 @@ class UploadActivity : AppCompatActivity() {
     lateinit var G:Uri
     private lateinit var storageref : StorageReference
     private lateinit var firebaseFirestore : FirebaseFirestore
+    private lateinit var ImageName:String
+    private lateinit var ImageLocation:String
+    private lateinit var Imagedate:String
+    private lateinit var Username:String
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +39,11 @@ class UploadActivity : AppCompatActivity() {
         binding.buttonSelectImage.setOnClickListener {
             SelectImage()
         }
+
         binding.buttonUploadImageUploadPage.setOnClickListener {
+            ImageName=binding.InputName.text.toString()
+            Imagedate=binding.ImageDate.text.toString()
+            ImageLocation=binding.InputImageLocation.text.toString()
             doUpload()
         }
 
@@ -44,6 +54,7 @@ class UploadActivity : AppCompatActivity() {
     {
         storageref = FirebaseStorage.getInstance().reference.child("All_Images")
         firebaseFirestore=FirebaseFirestore.getInstance()
+        Username=MyApplication.Username
     }
 
     public fun  SelectImage()
@@ -66,23 +77,17 @@ class UploadActivity : AppCompatActivity() {
         var UploadObject=UploadImage()
         var con=UploadImage.conclass()
         val inputData = contentResolver.openInputStream(G)?.readBytes()
-        storageref=storageref.child("Image1")
+        storageref=storageref.child(ImageName)
         storageref.putFile(G).addOnCompleteListener {
             if (it.isSuccessful)
             {
                 storageref.downloadUrl.addOnCompleteListener { res1->
                     var url_string=res1.result.toString()
-                    var statm="insert into all_images(id,username,user_id,image_url) values(11,'Apple',154,'" + url_string.toString()+ "')"
+                    var statm="insert into all_images(username,image_url,image_name,image_location,image_date) values( '$Username','"+ url_string.toString() + "','$ImageName','$ImageLocation','$Imagedate') ;"
                     var query_execution=UploadImage.SendImage(con,statm)
                     //query_execution=UploadImage.SendImage(con,statm)
-                    if(query_execution.equals(1))
-                    {
-                        Toast.makeText(this, "failed to upload to server", Toast.LENGTH_SHORT).show()
-                    }
-                    else
-                    {
-                        Toast.makeText(this, "Successfully uploaded ", Toast.LENGTH_SHORT).show()
-                    }
+                    Toast.makeText(this, "Uploaded ", Toast.LENGTH_SHORT).show()
+
                 }
             }
             else
